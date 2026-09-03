@@ -1,0 +1,77 @@
+SQL Practice Question
+
+Problem Statement:
+The sales team wants to identify customers whose total spending across all their orders is greater than 500. Use a subquery with an aggregate function to identify these customers. Then, display all orders placed by the identified customers.
+
+Tables:
+
+Customers
+
+customer_id
+
+customer_name
+
+
+Orders
+
+order_id
+
+customer_id
+
+order_date
+
+order_amount
+
+
+Query to be Implemented:
+Write an SQL query to return:
+
+customer_name
+
+order_date
+
+order_amount
+
+
+Requirements:
+
+Use the Customers and Orders tables.
+
+Join the tables using customer_id.
+
+Use one subquery.
+
+Use an aggregate function such as SUM() to calculate each customer's total spending.
+
+Use HAVING to identify customers whose total spending is greater than 500.
+
+Display all orders placed by the identified customers.
+
+
+Sample Data
+
+customer_id	customer_name
+
+1	Alice
+2	Bob
+3	Charlie
+
+
+order_id	customer_id	order_date	order_amount
+
+101	1	2024-04-01	150.00
+102	1	2024-04-05	200.00
+103	2	2024-04-02	300.00
+104	2	2024-04-07	250.00
+105	3	2024-04-03	100.00
+
+
+Expected Output:
+
+customer_name	order_date	order_amount
+
+Bob	2024-04-02	300.00
+Bob	2024-04-07	250.00
+
+
+Your task: Write the SQL query.
