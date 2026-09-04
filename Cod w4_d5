@@ -1,0 +1,41 @@
+class EmployeeRecordManager:
+
+    # Create an employee dictionary
+    def create_employee_record(self, name, department, salary):
+        return {
+            "name": name,
+            "department": department,
+            "salary": salary
+        }
+
+    # Get employee department
+    def get_department(self, record):
+        return record.get("department")
+
+    # Update employee salary
+    def update_salary(self, record, new_salary):
+        record["salary"] = new_salary
+        return record
+
+    # Add a new key-value pair
+    def add_attribute(self, record, key, value):
+        record[key] = value
+        return record
+
+
+# Step 2
+manager = EmployeeRecordManager()
+
+employee = manager.create_employee_record("Alice", "Marketing", 750080)
+
+print("Employee Record:", employee)
+
+print("Department:", manager.get_department(employee))
+
+updated_record = manager.update_salary(employee, 80000)
+
+print("After Salary Update:", updated_record)
+
+final_record = manager.add_attribute(employee, "location", "New York")
+
+print("After Adding New Attribute:", final_record)
