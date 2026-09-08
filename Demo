@@ -1,0 +1,60 @@
+import pandas as pd
+
+
+class AttendanceAnalyzer:
+
+    def create_attendance_df(self, data: list) -> pd.DataFrame:
+        # Write your code here
+        pass
+
+    def compute_monthly_attendance_rate(self, df: pd.DataFrame) -> pd.DataFrame:
+        # Write your code here
+        pass
+
+    def add_absence_flag(self, df: pd.DataFrame) -> pd.DataFrame:
+        # Write your code here
+        pass
+
+    def high_absentees(self, df: pd.DataFrame, threshold: int) -> pd.DataFrame:
+        # Write your code here
+        pass
+
+    def department_attendance_summary(self, df: pd.DataFrame) -> pd.DataFrame:
+        # Write your code here
+        pass
+
+
+def main():
+
+    analyzer = AttendanceAnalyzer()
+
+    # Sample attendance data
+    data = [
+        [201, "Sales", "2024-06-01", "Present"],
+        [202, "HR", "2024-06-01", "Absent"],
+        [201, "Sales", "2024-06-02", "Leave"]
+    ]
+
+    # Task 1
+    df = analyzer.create_attendance_df(data)
+    print(df)
+
+    # Task 2
+    monthly_rate = analyzer.compute_monthly_attendance_rate(df)
+    print(monthly_rate)
+
+    # Task 3
+    df = analyzer.add_absence_flag(df)
+    print(df)
+
+    # Task 4
+    high_absent = analyzer.high_absentees(df, 2)
+    print(high_absent)
+
+    # Task 5
+    summary = analyzer.department_attendance_summary(df)
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()
