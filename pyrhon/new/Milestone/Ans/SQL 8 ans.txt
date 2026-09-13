@@ -1,0 +1,155 @@
+SQL 1 - Easy: Customer with the Highest Value Order
+USE retail_store;
+
+select o.order_id, c.name AS customer_name, max(total_amount) AS total_amount 
+FROM Orders o 
+JOIN Customers c ON o.customer_id = c.customer_id
+GROUP BY o.order_id
+ORDER BY total_amount DESC
+LIMIT 1;
+
+or 
+
+SELECT o.order_id, c.name AS customer_name, o.total_amount
+FROM Orders o
+JOIN Customers c ON o.customer_id = c.customer_id
+WHERE o.total_amount = ( 
+    SELECT MAX(total_amount) FROM Orders
+);
+
+=======================================================================================
+
+SQL 2 - SQL Easy: Student Enrollments with Grades and Department Names
+USE university_core;
+
+SELECT s.student_id, s.name AS student_name, c.course_id, c.course_name, e.grade, d.department_name
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN Courses c ON e.course_id = c.course_id
+JOIN Departments d ON c.department_id = d.department_id
+ORDER BY s.student_id, c.course_id;
+
+==================================================================================================
+
+SQL 3 - SQL Easy : Calculate the average assignment score per course
+USE online_learning;
+
+SELECT c.course_name, AVG(s.score) AS avg_score
+FROM Courses c
+JOIN Assignments a ON c.course_id = a.course_id
+JOIN Submissions s ON a.assignment_id = s.assignment_id
+GROUP BY c.course_id, c.course_name
+ORDER BY avg_score DESC;
+
+
+=========================================================================================
+
+SQL 4 - SQL MEDIUM: Highest-Revenue Doctor per Department
+USE HOSPITAL_DB;
+
+SELECT d.department_name,doc.doctor_name, SUM(b.amount) AS total_revenue, 
+RANK() OVER (PARTITION BY d.dept_id ORDER BY SUM(b.amount) DESC) AS revenue_rank
+FROM Departments d
+JOIN Doctors doc ON d.dept_id = doc.dept_id
+JOIN Appointments a ON doc.doctor_id = a.doctor_id
+JOIN Bills b ON a.appointment_id = b.appointment_id
+GROUP BY d.department_name, d.dept_id, doc.doctor_name
+ORDER BY d.dept_id, revenue_rank;
+
+
+========================================================================================
+
+SQL 5 - SQL Medium: Students Ranked by Course Enrollments
+USE university_core;
+
+
+SELECT s.student_id, s.name, COUNT(e.course_id) AS course_count,
+RANK() OVER (ORDER BY COUNT(e.course_id) DESC) AS rank_by_enrollments,
+DENSE_RANK() OVER (ORDER BY COUNT(e.course_id) DESC) AS dense_rank_by_enrollments
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+GROUP BY s.student_id, s.name
+ORDER BY rank_by_enrollments;
+
+========================================================================================
+
+SQL 6 - SQL Medium:  Movies Watched by Viewers of 'Life of Pi'
+
+USE streaming_platform;
+
+SELECT DISTINCT m.movie_id, m.title
+FROM Movies m
+JOIN Watch_History w ON m.movie_id = w.movie_id
+WHERE w.user_id IN (
+    SELECT user_id FROM Watch_History WHERE movie_id = 902
+);
+
+
+
+========================================================================================
+========================================================================================
+
+SQL I - SQL: Event Average Finish Time (Medium)
+USE ATHLETICS_RESULTS_DB;
+
+
+SELECT e.event_name, a.athlete_name, r.finish_time,
+ROUND(AVG(r.finish_time) OVER (PARTITION BY r.event_id), 2) AS avg_event_time
+FROM Results r
+JOIN Events e ON r.event_id = e.event_id
+JOIN Athletes a ON r.athlete_id = a.athlete_id
+WHERE r.status = 'Recorded'
+ORDER BY e.event_name, r.finish_time, a.athlete_name;
+
+
+==========================================================================================
+
+SQL II - SQL: Days Between Customer Orders
+
+
+SELECT c.customer_name, o.order_id, o.order_date,
+DATEDIFF(o.order_date,
+    LAG(o.order_date) OVER (PARTITION BY o.customer_id ORDER BY o.order_date, o.order_id)
+        ) AS days_since_previous_order
+FROM Orders o
+JOIN Customers c ON o.customer_id = c.customer_id
+ORDER BY c.customer_name, o.order_date, o.order_id;
+
+
+=============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
